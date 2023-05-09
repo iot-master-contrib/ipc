@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "classify": {
+    "ipc": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -39,7 +39,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "app/classify",
+            "outputPath": "app/ipc",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -98,15 +98,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "classify:build",
+            "browserTarget": "ipc:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "classify:build:production"
+              "browserTarget": "ipc:build:production"
             },
             "development": {
-              "browserTarget": "classify:build:development"
+              "browserTarget": "ipc:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -114,7 +114,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "classify:build"
+            "browserTarget": "ipc:build"
           }
         }
       }

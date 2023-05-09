@@ -1,4 +1,4 @@
-module classify
+module ipc
 
 go 1.18
 

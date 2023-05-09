@@ -56,5 +56,6 @@ testem.log
 .DS_Store
 Thumbs.db
 /app
-/classify
+/package-lock.json
+/ipc
 /*.yaml

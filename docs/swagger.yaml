@@ -1,0 +1,556 @@
+basePath: /app/ipc/api/
+definitions:
+  api.ParamSearch:
+    properties:
+      filter:
+        additionalProperties: true
+        type: object
+      keyword:
+        additionalProperties:
+          type: string
+        type: object
+      limit:
+        type: integer
+      skip:
+        type: integer
+      sort:
+        additionalProperties:
+          type: integer
+        type: object
+    type: object
+  api.ReplyData-int64:
+    properties:
+      data:
+        type: integer
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Bridge:
+    properties:
+      data:
+        $ref: '#/definitions/types.Bridge'
+      error:
+        type: string
+    type: object
+  api.ReplyData-types_Camera:
+    properties:
+      data:
+        $ref: '#/definitions/types.Camera'
+      error:
+        type: string
+    type: object
+  api.ReplyList-types_Bridge:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/types.Bridge'
+        type: array
+      error:
+        type: string
+      total:
+        type: integer
+    type: object
+  api.ReplyList-types_Camera:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/types.Camera'
+        type: array
+      error:
+        type: string
+      total:
+        type: integer
+    type: object
+  types.Bridge:
+    properties:
+      created:
+        type: string
+      desc:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  types.Camera:
+    properties:
+      created:
+        type: string
+      desc:
+        type: string
+      id:
+        type: string
+      ipc_id:
+        type: string
+      name:
+        type: string
+      url:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API文档
+  title: 历史数据接口文档
+  version: 1.0 版本
+paths:
+  /bridge/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获取WebRTC-Bridge
+      parameters:
+      - description: 桥接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Bridge'
+      summary: 获取WebRTC-Bridge
+      tags:
+      - bridge
+    post:
+      consumes:
+      - application/json
+      description: 修改WebRTC-Bridge
+      parameters:
+      - description: 桥接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 桥接信息
+        in: body
+        name: bridge
+        required: true
+        schema:
+          $ref: '#/definitions/types.Bridge'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Bridge'
+      summary: 修改WebRTC-Bridge
+      tags:
+      - bridge
+  /bridge/{id}/delete:
+    get:
+      consumes:
+      - application/json
+      description: 删除WebRTC-Bridge
+      parameters:
+      - description: 桥接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Bridge'
+      summary: 删除WebRTC-Bridge
+      tags:
+      - bridge
+  /bridge/{id}/disable:
+    get:
+      consumes:
+      - application/json
+      description: 禁用WebRTC-Bridge
+      parameters:
+      - description: 桥接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Bridge'
+      summary: 禁用WebRTC-Bridge
+      tags:
+      - bridge
+  /bridge/{id}/enable:
+    get:
+      consumes:
+      - application/json
+      description: 启用WebRTC-Bridge
+      parameters:
+      - description: 桥接ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Bridge'
+      summary: 启用WebRTC-Bridge
+      tags:
+      - bridge
+  /bridge/count:
+    post:
+      consumes:
+      - application/json
+      description: 查询桥接数量
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 查询桥接数量
+      tags:
+      - bridge
+  /bridge/create:
+    post:
+      consumes:
+      - application/json
+      description: 创建WebRTC-Bridge
+      parameters:
+      - description: 桥接信息
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/types.Bridge'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Bridge'
+      summary: 创建WebRTC-Bridge
+      tags:
+      - bridge
+  /bridge/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出WebRTC-Bridge
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出WebRTC-Bridge
+      tags:
+      - product
+  /bridge/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入WebRTC-Bridge
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入WebRTC-Bridge
+      tags:
+      - product
+  /bridge/list:
+    get:
+      consumes:
+      - application/json
+      description: 查询WebRTC-Bridge
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: skip
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Bridge'
+      summary: 查询WebRTC-Bridge
+      tags:
+      - bridge
+  /bridge/search:
+    post:
+      consumes:
+      - application/json
+      description: 查询WebRTC-Bridge
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Bridge'
+      summary: 查询WebRTC-Bridge
+      tags:
+      - bridge
+  /camera/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获取摄像头
+      parameters:
+      - description: 摄像头ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Camera'
+      summary: 获取摄像头
+      tags:
+      - camera
+    post:
+      consumes:
+      - application/json
+      description: 修改摄像头
+      parameters:
+      - description: 摄像头ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 摄像头信息
+        in: body
+        name: camera
+        required: true
+        schema:
+          $ref: '#/definitions/types.Camera'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Camera'
+      summary: 修改摄像头
+      tags:
+      - camera
+  /camera/{id}/delete:
+    get:
+      consumes:
+      - application/json
+      description: 删除摄像头
+      parameters:
+      - description: 摄像头ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Camera'
+      summary: 删除摄像头
+      tags:
+      - camera
+  /camera/{id}/disable:
+    get:
+      consumes:
+      - application/json
+      description: 禁用摄像头
+      parameters:
+      - description: 摄像头ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Camera'
+      summary: 禁用摄像头
+      tags:
+      - camera
+  /camera/{id}/enable:
+    get:
+      consumes:
+      - application/json
+      description: 启用摄像头
+      parameters:
+      - description: 摄像头ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Camera'
+      summary: 启用摄像头
+      tags:
+      - camera
+  /camera/create:
+    post:
+      consumes:
+      - application/json
+      description: 创建摄像头
+      parameters:
+      - description: 摄像头信息
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/types.Camera'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-types_Camera'
+      summary: 创建摄像头
+      tags:
+      - camera
+  /camera/export:
+    get:
+      consumes:
+      - application/json
+      description: 导出摄像头
+      produces:
+      - application/octet-stream
+      responses: {}
+      summary: 导出摄像头
+      tags:
+      - product
+  /camera/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 导入摄像头
+      parameters:
+      - description: 压缩包
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 导入摄像头
+      tags:
+      - product
+  /camera/list:
+    get:
+      consumes:
+      - application/json
+      description: 查询摄像头
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: skip
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Camera'
+      summary: 查询摄像头
+      tags:
+      - camera
+  /camera/search:
+    post:
+      consumes:
+      - application/json
+      description: 查询摄像头
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyList-types_Camera'
+      summary: 查询摄像头
+      tags:
+      - camera
+  /job/count:
+    post:
+      consumes:
+      - application/json
+      description: 查询摄像头数量
+      parameters:
+      - description: 查询参数
+        in: body
+        name: search
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParamSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReplyData-int64'
+      summary: 查询摄像头数量
+      tags:
+      - camera
+swagger: "2.0"

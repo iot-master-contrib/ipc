@@ -4,7 +4,7 @@ go env -w GOPROXY=https://goproxy.cn,direct
 go env -w GOPRIVATE=*.gitlab.com,*.gitee.com
 go env -w GOSUMDB=off
 
-app="classify"
+app="ipc"
 version="1.0.0"
 
 npm run build
@@ -22,7 +22,7 @@ ldflags="-X '${pkg}.Version=$version' \
 export GOARCH=amd64
 
 export GOOS=windows
-go build -ldflags "$ldflags" -o classify.exe main.go
+go build -ldflags "$ldflags" -o ipc.exe main.go
 
 export GOOS=linux
-go build -ldflags "$ldflags" -o classify main.go
+go build -ldflags "$ldflags" -o ipc main.go
