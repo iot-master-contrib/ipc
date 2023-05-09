@@ -17,9 +17,9 @@ import (
 // @Router /bridge/count [post]
 func noopBridgeCount() {}
 
-// @Summary 查询WebRTC-Bridge
+// @Summary 查询桥接
 // @Schemes
-// @Description 查询WebRTC-Bridge
+// @Description 查询桥接
 // @Tags bridge
 // @Param search body ParamSearch true "查询参数"
 // @Accept json
@@ -28,9 +28,9 @@ func noopBridgeCount() {}
 // @Router /bridge/search [post]
 func noopBridgeSearch() {}
 
-// @Summary 查询WebRTC-Bridge
+// @Summary 查询桥接
 // @Schemes
-// @Description 查询WebRTC-Bridge
+// @Description 查询桥接
 // @Tags bridge
 // @Param search query ParamList true "查询参数"
 // @Accept json
@@ -39,9 +39,9 @@ func noopBridgeSearch() {}
 // @Router /bridge/list [get]
 func noopBridgeList() {}
 
-// @Summary 创建WebRTC-Bridge
+// @Summary 创建桥接
 // @Schemes
-// @Description 创建WebRTC-Bridge
+// @Description 创建桥接
 // @Tags bridge
 // @Param search body types.Bridge true "桥接信息"
 // @Accept json
@@ -50,9 +50,9 @@ func noopBridgeList() {}
 // @Router /bridge/create [post]
 func noopBridgeCreate() {}
 
-// @Summary 修改WebRTC-Bridge
+// @Summary 修改桥接
 // @Schemes
-// @Description 修改WebRTC-Bridge
+// @Description 修改桥接
 // @Tags bridge
 // @Param id path int true "桥接ID"
 // @Param bridge body types.Bridge true "桥接信息"
@@ -62,9 +62,9 @@ func noopBridgeCreate() {}
 // @Router /bridge/{id} [post]
 func noopBridgeUpdate() {}
 
-// @Summary 获取WebRTC-Bridge
+// @Summary 获取桥接
 // @Schemes
-// @Description 获取WebRTC-Bridge
+// @Description 获取桥接
 // @Tags bridge
 // @Param id path int true "桥接ID"
 // @Accept json
@@ -73,9 +73,9 @@ func noopBridgeUpdate() {}
 // @Router /bridge/{id} [get]
 func noopBridgeGet() {}
 
-// @Summary 删除WebRTC-Bridge
+// @Summary 删除桥接
 // @Schemes
-// @Description 删除WebRTC-Bridge
+// @Description 删除桥接
 // @Tags bridge
 // @Param id path int true "桥接ID"
 // @Accept json
@@ -84,9 +84,9 @@ func noopBridgeGet() {}
 // @Router /bridge/{id}/delete [get]
 func noopBridgeDelete() {}
 
-// @Summary 启用WebRTC-Bridge
+// @Summary 启用桥接
 // @Schemes
-// @Description 启用WebRTC-Bridge
+// @Description 启用桥接
 // @Tags bridge
 // @Param id path int true "桥接ID"
 // @Accept json
@@ -95,9 +95,9 @@ func noopBridgeDelete() {}
 // @Router /bridge/{id}/enable [get]
 func noopBridgeEnable() {}
 
-// @Summary 禁用WebRTC-Bridge
+// @Summary 禁用桥接
 // @Schemes
-// @Description 禁用WebRTC-Bridge
+// @Description 禁用桥接
 // @Tags bridge
 // @Param id path int true "桥接ID"
 // @Accept json
@@ -106,18 +106,18 @@ func noopBridgeEnable() {}
 // @Router /bridge/{id}/disable [get]
 func noopBridgeDisable() {}
 
-// @Summary 导出WebRTC-Bridge
+// @Summary 导出桥接
 // @Schemes
-// @Description 导出WebRTC-Bridge
+// @Description 导出桥接
 // @Tags product
 // @Accept json
 // @Produce octet-stream
 // @Router /bridge/export [get]
 func noopBridgeExport() {}
 
-// @Summary 导入WebRTC-Bridge
+// @Summary 导入桥接
 // @Schemes
-// @Description 导入WebRTC-Bridge
+// @Description 导入桥接
 // @Tags product
 // @Param file formData file true "压缩包"
 // @Accept mpfd
@@ -134,10 +134,10 @@ func bridgeRouter(app *gin.RouterGroup) {
 	app.POST("/create", curd.ApiCreateHook[types.Bridge](curd.GenerateRandomId[types.Bridge](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Bridge]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Bridge](nil, nil,
-		"id", "product_id", "name", "desc", "crontab", "aggregators", "disabled"))
+		"id", "name", "desc", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Bridge](nil, nil))
-	app.GET("/export", curd.ApiExport[types.Bridge]("bridge"))
-	app.POST("/import", curd.ApiImport[types.Bridge]())
+	app.GET("/export", curd.ApiExport("bridge", "视频桥接"))
+	app.POST("/import", curd.ApiImport("bridge"))
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Bridge](true, nil, nil))
 	app.GET(":id/enable", curd.ParseParamStringId, curd.ApiDisableHook[types.Bridge](false, nil, nil))

@@ -51,7 +51,7 @@ const docTemplate = `{
         },
         "/bridge/create": {
             "post": {
-                "description": "创建WebRTC-Bridge",
+                "description": "创建桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -61,7 +61,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "创建WebRTC-Bridge",
+                "summary": "创建桥接",
                 "parameters": [
                     {
                         "description": "桥接信息",
@@ -85,7 +85,7 @@ const docTemplate = `{
         },
         "/bridge/export": {
             "get": {
-                "description": "导出WebRTC-Bridge",
+                "description": "导出桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -95,13 +95,13 @@ const docTemplate = `{
                 "tags": [
                     "product"
                 ],
-                "summary": "导出WebRTC-Bridge",
+                "summary": "导出桥接",
                 "responses": {}
             }
         },
         "/bridge/import": {
             "post": {
-                "description": "导入WebRTC-Bridge",
+                "description": "导入桥接",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -111,7 +111,7 @@ const docTemplate = `{
                 "tags": [
                     "product"
                 ],
-                "summary": "导入WebRTC-Bridge",
+                "summary": "导入桥接",
                 "parameters": [
                     {
                         "type": "file",
@@ -133,7 +133,7 @@ const docTemplate = `{
         },
         "/bridge/list": {
             "get": {
-                "description": "查询WebRTC-Bridge",
+                "description": "查询桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -143,7 +143,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "查询WebRTC-Bridge",
+                "summary": "查询桥接",
                 "parameters": [
                     {
                         "type": "integer",
@@ -168,7 +168,7 @@ const docTemplate = `{
         },
         "/bridge/search": {
             "post": {
-                "description": "查询WebRTC-Bridge",
+                "description": "查询桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -178,7 +178,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "查询WebRTC-Bridge",
+                "summary": "查询桥接",
                 "parameters": [
                     {
                         "description": "查询参数",
@@ -202,7 +202,7 @@ const docTemplate = `{
         },
         "/bridge/{id}": {
             "get": {
-                "description": "获取WebRTC-Bridge",
+                "description": "获取桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -212,7 +212,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "获取WebRTC-Bridge",
+                "summary": "获取桥接",
                 "parameters": [
                     {
                         "type": "integer",
@@ -232,7 +232,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "修改WebRTC-Bridge",
+                "description": "修改桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -242,7 +242,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "修改WebRTC-Bridge",
+                "summary": "修改桥接",
                 "parameters": [
                     {
                         "type": "integer",
@@ -273,7 +273,7 @@ const docTemplate = `{
         },
         "/bridge/{id}/delete": {
             "get": {
-                "description": "删除WebRTC-Bridge",
+                "description": "删除桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -283,7 +283,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "删除WebRTC-Bridge",
+                "summary": "删除桥接",
                 "parameters": [
                     {
                         "type": "integer",
@@ -305,7 +305,7 @@ const docTemplate = `{
         },
         "/bridge/{id}/disable": {
             "get": {
-                "description": "禁用WebRTC-Bridge",
+                "description": "禁用桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -315,7 +315,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "禁用WebRTC-Bridge",
+                "summary": "禁用桥接",
                 "parameters": [
                     {
                         "type": "integer",
@@ -337,7 +337,7 @@ const docTemplate = `{
         },
         "/bridge/{id}/enable": {
             "get": {
-                "description": "启用WebRTC-Bridge",
+                "description": "启用桥接",
                 "consumes": [
                     "application/json"
                 ],
@@ -347,7 +347,7 @@ const docTemplate = `{
                 "tags": [
                     "bridge"
                 ],
-                "summary": "启用WebRTC-Bridge",
+                "summary": "启用桥接",
                 "parameters": [
                     {
                         "type": "integer",
@@ -824,6 +824,9 @@ const docTemplate = `{
                 "desc": {
                     "type": "string"
                 },
+                "disabled": {
+                    "type": "boolean"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -840,6 +843,9 @@ const docTemplate = `{
                 },
                 "desc": {
                     "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
                 },
                 "id": {
                     "type": "string"

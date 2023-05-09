@@ -8,5 +8,6 @@ type Camera struct {
 	Name     string     `json:"name"`
 	Desc     string     `json:"desc,omitempty"`
 	Url      string     `json:"url,omitempty"`
+	Disabled bool       `json:"disabled,omitempty"`
 	Created  model.Time `json:"created,omitempty" xorm:"created"`
 }
