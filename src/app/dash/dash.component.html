@@ -1,0 +1,18 @@
+<nz-layout>
+    <nz-sider>
+        <nz-tree [nzData]="nodes" nzCheckable nzMultiple [nzCheckedKeys]="defaultCheckedKeys"
+            (nzCheckBoxChange)="handleChecked($event)"></nz-tree>
+    </nz-sider>
+    <nz-layout>
+        <nz-content>
+            <div nz-row>
+                <div nz-col [nzSpan]="nzSpan" *ngFor="let data of showCheckedKeys;">
+                    <div class="inner-box">col-6</div>
+                </div>
+            </div>
+        </nz-content>
+        <nz-footer style="text-align: right;">
+            <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="checkedKeys.length"></nz-pagination>
+        </nz-footer>
+    </nz-layout>
+</nz-layout>
