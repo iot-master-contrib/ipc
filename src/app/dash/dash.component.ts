@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
+import { NzModalRef, NzModalService, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import * as WebRtcStreamer from 'src/assets/webrtcstreamer';
+import { CameraComponent } from '../camera/camera.component';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
@@ -27,7 +30,10 @@ export class DashComponent {
     options: "rtptransport=tcp&timeout=60",
   }
   webRtcServer: any = {};
-  constructor() {
+  constructor(
+    private modal: NzModalService,
+    private nzContextMenuService: NzContextMenuService
+  ) {
     const children: any = [];
     for (let index = 0; index < 20; index++) {
       children.push({
@@ -38,7 +44,7 @@ export class DashComponent {
     }
     this.nodes[0].children = children;
     this.checkedKeys = children;
-    this.nzSpan = this.getNzSpan();//默认显示4宫格
+    this.setNzSpan();//默认显示4宫格
     this.handlePageIndexChange(1);
     this.connect();
   }
@@ -51,9 +57,9 @@ export class DashComponent {
     this.pageIndex = pageIndex;
     this.showCheckedKeys = this.checkedKeys.slice((pageIndex - 1) * this.gridType, pageIndex * this.gridType);
   }
-  getNzSpan() {
+  setNzSpan() {
     // 4宫格col=12，9宫格col=8
-    return this.gridType === this.NINE_GRID ? 8 : 12;
+    this.nzSpan = this.gridType === this.NINE_GRID ? 8 : 12;
   }
   connect() {
     const { webrtcConfig } = this;
@@ -64,6 +70,37 @@ export class DashComponent {
     }
     window.onbeforeunload = () => { this.webRtcServer.disconnect() }
   }
-  handleEdit() {
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent, origin: any): void {
+    if (!origin.isLeaf) {
+      // 不是叶子节点--->没有下拉菜单
+      return;
+    }
+    this.nzContextMenuService.create($event, menu);
+  }
+  handleEdit(data?: any) {
+    const nzTitle = data ? `编辑【${data.title}】` : '新增';
+    this.modal.create<CameraComponent>({
+      nzTitle,
+      nzContent: CameraComponent,
+      nzOnOk: (componentInstance) => {
+        const sendData = componentInstance.validateForm.value;
+        console.log(sendData)
+      },
+    });
+  }
+  handleDel(origin: any) {
+    this.modal.confirm({
+      nzTitle: '提示',
+      nzContent: `确定删除【${origin.title}】`,
+      nzOnOk: () => console.log('OK')
+    });
+  }
+  handleChangeGrid(gridType: number) {
+    if (this.gridType === gridType) {
+      return;
+    }
+    this.gridType = gridType;
+    this.setNzSpan();
+    this.handlePageIndexChange(1);
   }
 }

@@ -1,6 +1,17 @@
 .app-layout {
     height: 100vh;
-    .ant-layout-sider{
-        background: #fff;;
+
+    .ant-layout-sider {
+        background: #fff;
+        ;
+    }
+}
+
+.cg_icon_div {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    .anticon:hover{
+        cursor: pointer;
     }
 }

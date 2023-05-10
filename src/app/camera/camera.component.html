@@ -1,1 +1,43 @@
-<p>camera works!</p>
+<form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" [nzRequired]="id" nzFor="id">ID</nz-form-label>
+        <nz-form-control [nzSpan]="16" nzErrorTip="id不可为空!">
+            <input nz-input id="id" formControlName="id" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="name">名称</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+            <input nz-input name="name" formControlName="name" />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="desc">描述</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+            <input nz-input name="desc" formControlName="desc" />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="url">url</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+            <input nz-input name="url" formControlName="url" />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="username">username</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+            <input nz-input name="username" formControlName="username" />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="password">password</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+            <input nz-input name="password" formControlName="password" />
+        </nz-form-control>
+    </nz-form-item>
+
+</form>

@@ -27,6 +27,7 @@ import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,7 +68,8 @@ registerLocaleData(zh);
     BaseModule,
     NzLayoutModule,
     NzTreeModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzDropDownModule
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/app/ipc/' },
