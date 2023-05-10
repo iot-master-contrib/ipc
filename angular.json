@@ -60,7 +60,10 @@
               "src/theme.less",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/adapter.min.js",
+              "src/assets/webrtcstreamer.js"
+            ]
           },
           "configurations": {
             "production": {

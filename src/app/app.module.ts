@@ -31,13 +31,15 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BaseModule } from "./base/base.module";
-import { DashComponent } from './dash/dash.component'
+import { DashComponent } from './dash/dash.component';
+import { CameraComponent } from './camera/camera.component'
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
     DashComponent,
+    CameraComponent,
   ],
   imports: [
     BrowserModule,
