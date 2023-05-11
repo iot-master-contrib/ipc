@@ -1,0 +1,15 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzRequired]="!!id" nzFor="id">id</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="id不可为空!">
+            <input nz-input formControlName="id" />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="bridge">桥接信息</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="桥接信息不可为空!">
+            <textarea nz-input formControlName="bridge"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+</form>

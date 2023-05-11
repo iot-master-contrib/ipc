@@ -31,7 +31,6 @@ export class CameraComponent {
       }
       this.validateForm.setValue(odata);
     }
-    // 给子组件设值
   }
   build(mess?: any) {
     mess = mess || {};
