@@ -19,8 +19,9 @@
         <nz-content>
             <div nz-row style="height: 100%;">
                 <div nz-col [nzSpan]="nzSpan" style="border:1px solid #cecece;"
-                    [ngStyle]="{'height':(gridType===FOUR_GRID?'50%':'33%')}">
-                    <video id="video0" autoplay muted playsinline style="width:100%;height:100%;"></video>
+                    [ngStyle]="{'height':(gridType===FOUR_GRID?'50%':'33%')}"
+                    *ngFor="let item of checkedKeys;let i = index;">
+                    <video [id]="'video'+i" autoplay muted playsinline style="width:100%;height:100%;"></video>
                 </div>
             </div>
         </nz-content>

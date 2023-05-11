@@ -37,7 +37,6 @@ export class DashComponent {
     private msg: NzMessageService,
   ) {
     this.load();
-    this.connect();
   }
   load() {
     this.rs.get('camera/list').subscribe((res) => {
@@ -64,6 +63,7 @@ export class DashComponent {
       this.checkedKeys = children;
       this.setNzSpan();//默认显示4宫格
       this.handlePageIndexChange(1);
+      this.connect();
     });
   }
   handleChecked(data: NzFormatEmitEvent): void {
