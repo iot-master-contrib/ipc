@@ -1,38 +1,19 @@
 <nz-layout class="app-layout">
-    <nz-sider style="text-align: right;">
-        <button nz-button nzType="primary" (click)="handleEdit()">
-            <span nz-icon nzType="plus"></span>添加监控</button>
-        <nz-tree [nzData]="nodes" nzCheckable nzMultiple [nzCheckedKeys]="defaultCheckedKeys"
+    <nz-sider>
+        <nz-tree [nzData]="nodes" nzCheckable [nzCheckedKeys]="defaultCheckedKeys"
             (nzCheckBoxChange)="handleChecked($event)" [nzTreeTemplate]="nzTreeTemplate">
             <ng-template #nzTreeTemplate let-node let-origin="origin">
-                <span class="custom-node">
-                    <span (contextmenu)="contextMenu($event, menu, origin)">
-                        {{ node.title }}
-                    </span>
-                </span>
-                <nz-dropdown-menu #menu="nzDropdownMenu">
-                    <ul nz-menu>
-                        <li nz-menu-item (click)="handleEdit(origin)">编辑</li>
-                        <li nz-menu-item (click)="handleDel(origin)">删除</li>
-                    </ul>
-                </nz-dropdown-menu>
+                <div class="custom-node">
+                    {{ node.title }}
+                    <nz-space *ngIf="node.isLeaf" class="oper-icon">
+                        <i *nzSpaceItem nz-icon nzType="edit" (click)="handleEdit(origin)"></i>
+                        <i *nzSpaceItem nz-icon nzType="delete" (click)="handleDel(origin)"></i>
+                    </nz-space>
+                </div>
             </ng-template>
         </nz-tree>
-        <div class="cg_icon_div">
-            <span nz-icon style="font-size: 32px;" (click)="handleChangeGrid(FOUR_GRID)">
-                <svg class="four_grid">
-                    <path
-                        d="M203.264 492.032h288.768V203.264H203.264v288.768z m320.512-288.768v288.768h288.768V203.264H523.776z m-320.512 609.28h288.768V523.776H203.264v288.768z m320.512 0h288.768V523.776H523.776v288.768z" />
-                </svg>
-            </span>
-            <span nz-icon style="font-size: 32px;" (click)="handleChangeGrid(NINE_GRID)">
-                <svg>
-                    <path
-                        d="M203.264 363.52H363.52V203.264H203.264V363.52z m449.024-160.256V363.52h160.256V203.264H652.288zM395.776 363.52h224.768V203.264H395.776V363.52zM203.264 620.032H363.52V395.776H203.264v224.256z m449.024 0h160.256V395.776H652.288v224.256z m-256.512 0h224.768V395.776H395.776v224.256zM203.264 812.544H363.52V652.288H203.264v160.256z m449.024 0h160.256V652.288H652.288v160.256z m-256.512 0h224.768V652.288H395.776v160.256z"
-                        p-id="5076"></path>
-                </svg>
-            </span>
-        </div>
+        <button nz-button nzType="primary" class="add-btn" (click)="handleEdit()">
+            <span nz-icon nzType="plus"></span>添加监控</button>
     </nz-sider>
     <nz-layout>
         <nz-content>
@@ -43,7 +24,22 @@
                 </div>
             </div>
         </nz-content>
-        <nz-footer style="text-align: right;">
+        <nz-footer style="text-align: right;position: relative;">
+            <div class="cg_icon_div">
+                <span nz-icon style="font-size: 32px;" (click)="handleChangeGrid(FOUR_GRID)">
+                    <svg class="four_grid">
+                        <path
+                            d="M203.264 492.032h288.768V203.264H203.264v288.768z m320.512-288.768v288.768h288.768V203.264H523.776z m-320.512 609.28h288.768V523.776H203.264v288.768z m320.512 0h288.768V523.776H523.776v288.768z" />
+                    </svg>
+                </span>
+                <span nz-icon style="font-size: 32px;" (click)="handleChangeGrid(NINE_GRID)">
+                    <svg>
+                        <path
+                            d="M203.264 363.52H363.52V203.264H203.264V363.52z m449.024-160.256V363.52h160.256V203.264H652.288zM395.776 363.52h224.768V203.264H395.776V363.52zM203.264 620.032H363.52V395.776H203.264v224.256z m449.024 0h160.256V395.776H652.288v224.256z m-256.512 0h224.768V395.776H395.776v224.256zM203.264 812.544H363.52V652.288H203.264v160.256z m449.024 0h160.256V652.288H652.288v160.256z m-256.512 0h224.768V652.288H395.776v160.256z"
+                            p-id="5076"></path>
+                    </svg>
+                </span>
+            </div>
             <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="checkedKeys.length" [nzPageSize]="gridType"
                 (nzPageIndexChange)="handlePageIndexChange($event)"></nz-pagination>
         </nz-footer>

@@ -3,7 +3,6 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { NzModalRef, NzModalService, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import * as WebRtcStreamer from 'src/assets/webrtcstreamer';
 import { CameraComponent } from '../camera/camera.component';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
@@ -32,7 +31,6 @@ export class DashComponent {
   webRtcServer: any = {};
   constructor(
     private modal: NzModalService,
-    private nzContextMenuService: NzContextMenuService
   ) {
     const children: any = [];
     for (let index = 0; index < 20; index++) {
@@ -69,13 +67,6 @@ export class DashComponent {
       // this.webRtcServer.connect('rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4', options);
     }
     window.onbeforeunload = () => { this.webRtcServer.disconnect() }
-  }
-  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent, origin: any): void {
-    if (!origin.isLeaf) {
-      // 不是叶子节点--->没有下拉菜单
-      return;
-    }
-    this.nzContextMenuService.create($event, menu);
   }
   handleEdit(data?: any) {
     const nzTitle = data ? `编辑【${data.title}】` : '新增';

@@ -3,15 +3,38 @@
 
     .ant-layout-sider {
         background: #fff;
-        ;
     }
+}
+
+.ant-tree ::ng-deep.ant-tree-node-content-wrapper {
+    flex: 1;
+
+    .custom-node {
+        display: flex;
+        justify-content: space-between;
+
+        .oper-icon {
+            display: none;
+        }
+
+        &:hover .oper-icon {
+            display: inline-flex;
+        }
+    }
+}
+
+.add-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .cg_icon_div {
     position: absolute;
-    right: 0;
+    left: 0;
     bottom: 0;
-    .anticon:hover{
+
+    .anticon:hover {
         cursor: pointer;
     }
 }
