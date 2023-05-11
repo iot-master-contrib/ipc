@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { NzModalRef, NzModalService, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import * as WebRtcStreamer from 'src/assets/webrtcstreamer';
 import { CameraComponent } from '../camera/camera.component';
 import { RequestService } from '../request.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+declare var WebRtcStreamer: any;
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
@@ -37,6 +37,7 @@ export class DashComponent {
     private msg: NzMessageService,
   ) {
     this.load();
+    this.connect();
   }
   load() {
     this.rs.get('camera/list').subscribe((res) => {
@@ -63,7 +64,6 @@ export class DashComponent {
       this.checkedKeys = children;
       this.setNzSpan();//默认显示4宫格
       this.handlePageIndexChange(1);
-      this.connect();
     });
   }
   handleChecked(data: NzFormatEmitEvent): void {
@@ -83,8 +83,8 @@ export class DashComponent {
     const { webrtcConfig } = this;
     let options = webrtcConfig.options;
     window.onload = () => {
-      // this.webRtcServer = new WebRtcStreamer("video0", "http://192.168.2.8:8000");
-      // this.webRtcServer.connect('rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4', options);
+      this.webRtcServer = new WebRtcStreamer("video0", "http://192.168.2.8:8030");
+      this.webRtcServer.connect('rtsp://stream.strba.sk:1935/strba/VYHLAD_JAZERO.stream', "", options);
     }
     window.onbeforeunload = () => { this.webRtcServer.disconnect() }
   }

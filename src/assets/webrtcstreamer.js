@@ -238,6 +238,7 @@ WebRtcStreamer.prototype.addIceCandidate = function(peerid, candidate) {
 WebRtcStreamer.prototype.onAddStream = function(event) {
 	console.log("Remote track added:" +  JSON.stringify(event));
 	
+	console.log("🚀 ~ file: webrtcstreamer.js:242 ~ WebRtcStreamer ~ this.videoElement:", this.videoElement)
 	this.videoElement.srcObject = event.stream;
 	var promise = this.videoElement.play();
 	if (promise !== undefined) {
