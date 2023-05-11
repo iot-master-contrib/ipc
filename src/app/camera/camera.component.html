@@ -1,6 +1,6 @@
 <form nz-form [formGroup]="validateForm">
     <nz-form-item>
-        <nz-form-label [nzSpan]="5" [nzRequired]="id" nzFor="id">ID</nz-form-label>
+        <nz-form-label [nzSpan]="5" [nzRequired]="!!id" nzFor="id">ID</nz-form-label>
         <nz-form-control [nzSpan]="16" nzErrorTip="id不可为空!">
             <input nz-input id="id" formControlName="id" />
         </nz-form-control>

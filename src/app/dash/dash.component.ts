@@ -3,6 +3,8 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { NzModalRef, NzModalService, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import * as WebRtcStreamer from 'src/assets/webrtcstreamer';
 import { CameraComponent } from '../camera/camera.component';
+import { RequestService } from '../request.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
@@ -31,20 +33,38 @@ export class DashComponent {
   webRtcServer: any = {};
   constructor(
     private modal: NzModalService,
+    private rs: RequestService,
+    private msg: NzMessageService,
   ) {
-    const children: any = [];
-    for (let index = 0; index < 20; index++) {
-      children.push({
-        title: `监控${index + 1}`,
-        key: `0-${index + 1}`,
-        isLeaf: true
-      })
-    }
-    this.nodes[0].children = children;
-    this.checkedKeys = children;
-    this.setNzSpan();//默认显示4宫格
-    this.handlePageIndexChange(1);
-    this.connect();
+    this.load();
+  }
+  load() {
+    this.rs.get('camera/list').subscribe((res) => {
+      if (!res.data) {
+        return;
+      }
+      const children: any = [];
+      for (let index = 0; index < res.data.length; index++) {
+        const item = res.data[index];
+        children.push({
+          title: item.name,
+          key: item.id,
+          isLeaf: true,
+          ...item
+        })
+      }
+      this.nodes = [{
+        title: '监控管理',
+        expanded: true,
+        key: '0',
+        children
+      }];
+      this.defaultCheckedKeys = [this.nodes[0].key];
+      this.checkedKeys = children;
+      this.setNzSpan();//默认显示4宫格
+      this.handlePageIndexChange(1);
+      this.connect();
+    });
   }
   handleChecked(data: NzFormatEmitEvent): void {
     const arr = data.checkedKeys!.map((item) => item.origin);
@@ -70,20 +90,48 @@ export class DashComponent {
   }
   handleEdit(data?: any) {
     const nzTitle = data ? `编辑【${data.title}】` : '新增';
-    this.modal.create<CameraComponent>({
+    const modal: NzModalRef = this.modal.create<CameraComponent>({
       nzTitle,
       nzContent: CameraComponent,
-      nzOnOk: (componentInstance) => {
-        const sendData = componentInstance.validateForm.value;
-        console.log(sendData)
+      nzComponentParams: {
+        id: data ? data.id : ''
       },
+      nzFooter: [{
+        label: '取消',
+        onClick: () => {
+          modal.destroy();
+        }
+      }, {
+        label: '保存',
+        type: 'primary',
+        onClick: componentInstance => {
+          const { value, valid } = componentInstance!.validateForm;
+          if (valid) {
+            let url = data ? `camera/${value.id}` : `camera/create`;
+            this.rs.post(url, value).subscribe((res) => {
+              if (res.error) {
+                this.msg.error(res.error);
+              } else {
+                this.msg.success('保存成功');
+                this.load();
+                modal.destroy();
+              }
+            })
+          }
+        }
+      }]
     });
   }
   handleDel(origin: any) {
     this.modal.confirm({
       nzTitle: '提示',
-      nzContent: `确定删除【${origin.title}】`,
-      nzOnOk: () => console.log('OK')
+      nzContent: `确定删除【${origin.title}】？`,
+      nzOnOk: () => {
+        this.rs.get(`camera/${origin.id}/delete`).subscribe((res) => {
+          this.msg.success('删除成功');
+          this.load();
+        });
+      }
     });
   }
   handleChangeGrid(gridType: number) {
