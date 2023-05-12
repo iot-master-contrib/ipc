@@ -30,7 +30,7 @@ export class DashComponent {
   webrtcConfig = {
     options: "rtptransport=tcp&timeout=60",
   }
-  webRtcServer: any = {};
+  webRtcServerArr: any = [];
   constructor(
     private modal: NzModalService,
     private rs: RequestService,
@@ -39,6 +39,7 @@ export class DashComponent {
     this.load();
   }
   load() {
+    this.webRtcServerArr = [];
     this.rs.get('camera/list').subscribe((res) => {
       if (!res.data) {
         return;
@@ -80,13 +81,26 @@ export class DashComponent {
     this.nzSpan = this.gridType === this.NINE_GRID ? 8 : 12;
   }
   connect() {
-    const { webrtcConfig } = this;
-    let options = webrtcConfig.options;
-    window.onload = () => {
-      this.webRtcServer = new WebRtcStreamer("video0", "http://192.168.2.8:8030");
-      this.webRtcServer.connect('rtsp://stream.strba.sk:1935/strba/VYHLAD_JAZERO.stream', "", options);
+    if (!this.checkedKeys.length) return;
+    const options = this.webrtcConfig.options;
+    const interval = setInterval(() => {
+      const video = document.getElementById("video0");
+      if (video) {
+        clearInterval(interval);
+        for (let index = 0; index < this.checkedKeys.length; index++) {
+          const item = this.checkedKeys[index];
+          const itemWebrtc = new WebRtcStreamer(`video${index}`, item.desc)
+          itemWebrtc.connect(item.url, "", options);
+          this.webRtcServerArr.push(itemWebrtc);
+        }
+      }
+    }, 10);
+    window.onbeforeunload = () => {
+      this.webRtcServerArr.forEach((element: { disconnect: () => void; }) => {
+        element.disconnect();
+      });
+      this.webRtcServerArr = [];
     }
-    window.onbeforeunload = () => { this.webRtcServer.disconnect() }
   }
   handleEdit(data?: any) {
     const nzTitle = data ? `编辑【${data.title}】` : '新增';
