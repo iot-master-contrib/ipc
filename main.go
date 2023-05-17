@@ -45,7 +45,7 @@ func main() {
 
 	//同步表结构
 	err = db.Engine.Sync2(
-		new(types.Bridge), new(types.Camera),
+		new(types.Camera),
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -66,13 +66,10 @@ func main() {
 		Entries: []model.AppEntry{{
 			Path: "app/ipc/camera",
 			Name: "摄像头",
-		}, {
-			Path: "app/ipc/bridge",
-			Name: "桥接器",
 		}},
 		Type:    "tcp",
 		Address: "http://localhost" + web.GetOptions().Addr,
-		Icon: "/app/ipc/assets/camera.svg",
+		Icon:    "/app/ipc/assets/camera.svg",
 	})
 	_ = mqtt.Publish("master/register", payload, false, 0)
 	//}

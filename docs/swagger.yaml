@@ -25,30 +25,12 @@ definitions:
       error:
         type: string
     type: object
-  api.ReplyData-types_Bridge:
-    properties:
-      data:
-        $ref: '#/definitions/types.Bridge'
-      error:
-        type: string
-    type: object
   api.ReplyData-types_Camera:
     properties:
       data:
         $ref: '#/definitions/types.Camera'
       error:
         type: string
-    type: object
-  api.ReplyList-types_Bridge:
-    properties:
-      data:
-        items:
-          $ref: '#/definitions/types.Bridge'
-        type: array
-      error:
-        type: string
-      total:
-        type: integer
     type: object
   api.ReplyList-types_Camera:
     properties:
@@ -61,19 +43,6 @@ definitions:
       total:
         type: integer
     type: object
-  types.Bridge:
-    properties:
-      created:
-        type: string
-      desc:
-        type: string
-      disabled:
-        type: boolean
-      id:
-        type: string
-      name:
-        type: string
-    type: object
   types.Camera:
     properties:
       created:
@@ -84,11 +53,11 @@ definitions:
         type: boolean
       id:
         type: string
-      ipc_id:
-        type: string
       name:
         type: string
       url:
+        type: string
+      webrtc_streamer:
         type: string
     type: object
 info:
@@ -97,236 +66,6 @@ info:
   title: 历史数据接口文档
   version: 1.0 版本
 paths:
-  /bridge/{id}:
-    get:
-      consumes:
-      - application/json
-      description: 获取桥接
-      parameters:
-      - description: 桥接ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Bridge'
-      summary: 获取桥接
-      tags:
-      - bridge
-    post:
-      consumes:
-      - application/json
-      description: 修改桥接
-      parameters:
-      - description: 桥接ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: 桥接信息
-        in: body
-        name: bridge
-        required: true
-        schema:
-          $ref: '#/definitions/types.Bridge'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Bridge'
-      summary: 修改桥接
-      tags:
-      - bridge
-  /bridge/{id}/delete:
-    get:
-      consumes:
-      - application/json
-      description: 删除桥接
-      parameters:
-      - description: 桥接ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Bridge'
-      summary: 删除桥接
-      tags:
-      - bridge
-  /bridge/{id}/disable:
-    get:
-      consumes:
-      - application/json
-      description: 禁用桥接
-      parameters:
-      - description: 桥接ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Bridge'
-      summary: 禁用桥接
-      tags:
-      - bridge
-  /bridge/{id}/enable:
-    get:
-      consumes:
-      - application/json
-      description: 启用桥接
-      parameters:
-      - description: 桥接ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Bridge'
-      summary: 启用桥接
-      tags:
-      - bridge
-  /bridge/count:
-    post:
-      consumes:
-      - application/json
-      description: 查询桥接数量
-      parameters:
-      - description: 查询参数
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/api.ParamSearch'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int64'
-      summary: 查询桥接数量
-      tags:
-      - bridge
-  /bridge/create:
-    post:
-      consumes:
-      - application/json
-      description: 创建桥接
-      parameters:
-      - description: 桥接信息
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/types.Bridge'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Bridge'
-      summary: 创建桥接
-      tags:
-      - bridge
-  /bridge/export:
-    get:
-      consumes:
-      - application/json
-      description: 导出桥接
-      produces:
-      - application/octet-stream
-      responses: {}
-      summary: 导出桥接
-      tags:
-      - product
-  /bridge/import:
-    post:
-      consumes:
-      - multipart/form-data
-      description: 导入桥接
-      parameters:
-      - description: 压缩包
-        in: formData
-        name: file
-        required: true
-        type: file
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int64'
-      summary: 导入桥接
-      tags:
-      - product
-  /bridge/list:
-    get:
-      consumes:
-      - application/json
-      description: 查询桥接
-      parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: skip
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyList-types_Bridge'
-      summary: 查询桥接
-      tags:
-      - bridge
-  /bridge/search:
-    post:
-      consumes:
-      - application/json
-      description: 查询桥接
-      parameters:
-      - description: 查询参数
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/api.ParamSearch'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyList-types_Bridge'
-      summary: 查询桥接
-      tags:
-      - bridge
   /camera/{id}:
     get:
       consumes:
