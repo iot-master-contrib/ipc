@@ -37,6 +37,7 @@ export class CameraComponent {
     this.validateForm = this.fb.group({
       id: [mess.id || '', this.id ? [Validators.required] : ''],
       name: [mess.name || ''],
+      webrtc_streamer: [mess.webrtc_streamer || ''],
       desc: [mess.desc || ''],
       url: [mess.url || ''],
       username: [mess.username || ''],

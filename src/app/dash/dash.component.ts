@@ -89,7 +89,7 @@ export class DashComponent {
         clearInterval(interval);
         for (let index = 0; index < this.checkedKeys.length; index++) {
           const item = this.checkedKeys[index];
-          const itemWebrtc = new WebRtcStreamer(`video${index}`, item.desc)
+          const itemWebrtc = new WebRtcStreamer(`video${index}`, item.webrtc_streamer)
           itemWebrtc.connect(item.url, "", options);
           this.webRtcServerArr.push(itemWebrtc);
         }

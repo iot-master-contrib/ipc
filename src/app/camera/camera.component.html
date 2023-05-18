@@ -13,9 +13,9 @@
     </nz-form-item>
 
     <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="desc">描述</nz-form-label>
+        <nz-form-label [nzSpan]="5" nzFor="webrtc_streamer">媒体服务器地址</nz-form-label>
         <nz-form-control [nzSpan]="16">
-            <input nz-input name="desc" formControlName="desc" />
+            <input nz-input name="webrtc_streamer" formControlName="webrtc_streamer" />
         </nz-form-control>
     </nz-form-item>
 
@@ -40,4 +40,10 @@
         </nz-form-control>
     </nz-form-item>
 
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="desc">描述</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+            <input nz-input name="desc" formControlName="desc" />
+        </nz-form-control>
+    </nz-form-item>
 </form>

@@ -134,7 +134,7 @@ func cameraRouter(app *gin.RouterGroup) {
 	app.POST("/create", curd.ApiCreateHook[types.Camera](curd.GenerateRandomId[types.Camera](8), nil))
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Camera]())
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Camera](nil, nil,
-		"id", "bridge_id", "name", "desc", "url", "disabled"))
+		"id", "bridge_id", "name", "desc", "url", "disabled", "webrtc_streamer"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Camera](nil, nil))
 	app.GET("/export", curd.ApiExport("camera", "摄像头"))
 	app.POST("/import", curd.ApiImport("camera"))
