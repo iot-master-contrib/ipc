@@ -6,11 +6,11 @@ import { RequestService } from '../request.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 declare var WebRtcStreamer: any;
 @Component({
-  selector: 'app-dash',
-  templateUrl: './dash.component.html',
-  styleUrls: ['./dash.component.scss']
+  selector: 'app-camera',
+  templateUrl: './camera.component.html',
+  styleUrls: ['./camera.component.scss']
 })
-export class DashComponent {
+export class CameraComponent {
   nodes = [
     {
       title: '监控管理',

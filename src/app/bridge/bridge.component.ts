@@ -6,7 +6,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ParseTableQuery } from '../base/table';
 import { RequestService } from '../request.service';
-import { BridgeEditComponent } from './bridge-edit/bridge-edit.component';
+import { BridgeEditComponent } from '../bridge-edit/bridge-edit.component';
 @Component({
   selector: 'app-bridge',
   templateUrl: './bridge.component.html',

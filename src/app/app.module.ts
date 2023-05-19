@@ -32,16 +32,16 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BaseModule } from "./base/base.module";
-import { DashComponent } from './dash/dash.component';
+import { CameraComponent } from './camera/camera.component';
 import { CameraEditComponent } from './camera-edit/camera-edit.component';
 import { BridgeComponent } from './bridge/bridge.component';
-import { BridgeEditComponent } from './bridge/bridge-edit/bridge-edit.component'
+import { BridgeEditComponent } from './bridge-edit/bridge-edit.component'
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashComponent,
+    CameraComponent,
     CameraEditComponent,
     BridgeComponent,
     BridgeEditComponent,
