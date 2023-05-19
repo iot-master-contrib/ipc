@@ -64,7 +64,7 @@ func main() {
 		Id:   "ipc",
 		Name: "IP摄像头",
 		Entries: []model.AppEntry{{
-			Path: "app/ipc/camera",
+			Path: "app/ipc/dash",
 			Name: "摄像头",
 		}},
 		Type:    "tcp",

@@ -3,11 +3,11 @@ import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { RequestService } from '../request.service';
 
 @Component({
-  selector: 'app-camera',
-  templateUrl: './camera.component.html',
-  styleUrls: ['./camera.component.scss']
+  selector: 'app-camera-edit-edit',
+  templateUrl: './camera-edit.component.html',
+  styleUrls: ['./camera-edit.component.scss']
 })
-export class CameraComponent {
+export class CameraEditComponent {
   validateForm!: FormGroup;
   @Input() id?: number | string;
   constructor(
