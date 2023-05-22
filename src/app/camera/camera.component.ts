@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
-import { NzModalRef, NzModalService, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { CameraEditComponent } from '../camera-edit/camera-edit.component';
 import { RequestService } from '../request.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
