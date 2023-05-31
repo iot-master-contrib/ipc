@@ -55,7 +55,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-/app
 /package-lock.json
 /ipc
 /*.yaml

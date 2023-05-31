@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/iot-master-contrib/ipc/types"
 	"github.com/zgwit/iot-master/v3/pkg/curd"
-	"ipc/types"
 )
 
 // @Summary 查询摄像头数量

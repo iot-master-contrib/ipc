@@ -22,7 +22,7 @@ ldflags="-X '${pkg}.Version=$version' \
 export GOARCH=amd64
 
 export GOOS=windows
-go build -ldflags "$ldflags" -o ipc.exe main.go
+go build -ldflags "$ldflags" -o ipc.exe cmd/main.go
 
 export GOOS=linux
-go build -ldflags "$ldflags" -o ipc main.go
+go build -ldflags "$ldflags" -o ipc cmd/main.go

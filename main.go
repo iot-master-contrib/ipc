@@ -1,21 +1,32 @@
-package main
+package ipc
 
 import (
 	"embed"
 	"encoding/json"
+	"github.com/iot-master-contrib/ipc/api"
+	_ "github.com/iot-master-contrib/ipc/docs"
+	"github.com/iot-master-contrib/ipc/types"
 	"github.com/zgwit/iot-master/v3/model"
-	"github.com/zgwit/iot-master/v3/pkg/banner"
-	"github.com/zgwit/iot-master/v3/pkg/build"
 	"github.com/zgwit/iot-master/v3/pkg/db"
 	"github.com/zgwit/iot-master/v3/pkg/log"
 	"github.com/zgwit/iot-master/v3/pkg/mqtt"
 	"github.com/zgwit/iot-master/v3/pkg/web"
-	"ipc/api"
-	"ipc/config"
-	_ "ipc/docs"
-	"ipc/types"
 	"net/http"
 )
+
+func App() *model.App {
+	return &model.App{
+		Id:   "ipc",
+		Name: "IP摄像头",
+		Entries: []model.AppEntry{{
+			Path: "app/ipc/camera",
+			Name: "摄像头",
+		}},
+		Type:    "tcp",
+		Address: "http://localhost" + web.GetOptions().Addr,
+		Icon:    "/app/ipc/assets/camera.svg",
+	}
+}
 
 //go:embed all:app/ipc
 var wwwFiles embed.FS
@@ -26,65 +37,40 @@ var wwwFiles embed.FS
 // @BasePath /app/ipc/api/
 // @query.collection.format multi
 func main() {
-	banner.Print("iot-master-plugin:ipc")
-	build.Print()
+}
 
-	config.Load()
-
-	err := log.Open()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	//加载数据库
-	err = db.Open()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
+func Startup(app *web.Engine) error {
 
 	//同步表结构
-	err = db.Engine.Sync2(
+	err := db.Engine.Sync2(
 		new(types.Camera),
 	)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	//MQTT总线
-	err = mqtt.Open()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer mqtt.Close()
-
-	//注册应用
-	//for _, v := range config.Config.Apps {
-	payload, _ := json.Marshal(model.App{
-		Id:   "ipc",
-		Name: "IP摄像头",
-		Entries: []model.AppEntry{{
-			Path: "app/ipc/camera",
-			Name: "摄像头",
-		}},
-		Type:    "tcp",
-		Address: "http://localhost" + web.GetOptions().Addr,
-		Icon:    "/app/ipc/assets/camera.svg",
-	})
-	_ = mqtt.Publish("master/register", payload, false, 0)
-	//}
-
-	app := web.CreateEngine()
-
 	//注册前端接口
 	api.RegisterRoutes(app.Group("/app/ipc/api"))
 
 	//注册接口文档
-	web.RegisterSwaggerDocs(app.Group("/app/ipc"))
+	web.RegisterSwaggerDocs(app.Group("/app/ipc"), "ipc")
 
+	return nil
+}
+
+func Register() error {
+	payload, _ := json.Marshal(App())
+	return mqtt.Publish("master/register", payload, false, 0)
+}
+
+func Static(fs *web.FileSystem) {
 	//前端静态文件
-	app.RegisterFS(http.FS(wwwFiles), "", "app/ipc/index.html")
+	fs.Put("/app/ipc", http.FS(wwwFiles), "", "app/ipc/index.html")
+}
 
-	//监听HTTP
-	app.Serve()
+func Shutdown() error {
+
+	//只关闭Web就行了，其他通过defer关闭
+
+	return nil
 }
