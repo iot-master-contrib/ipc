@@ -79,23 +79,32 @@ export class CameraComponent {
   handlePageIndexChange(pageIndex: number) {
     this.pageIndex = pageIndex;
     this.showCheckedKeys = this.checkedKeys.slice((pageIndex - 1) * this.gridType, pageIndex * this.gridType);
+    this.connect(false);
   }
   setNzSpan() {
     // 4宫格col=12，9宫格col=8
     this.nzSpan = this.gridType === this.NINE_GRID ? 8 : 12;
   }
-  connect() {
+  connect(firstEnter = true) {
     if (!this.checkedKeys.length) return;
     const options = this.webrtcConfig.options;
     const interval = setInterval(() => {
-      const video = document.getElementById("video0");
+      const video = document.getElementsByTagName("video");
       if (video) {
         clearInterval(interval);
         for (let index = 0; index < this.checkedKeys.length; index++) {
           const item = this.checkedKeys[index];
-          const itemWebrtc = new WebRtcStreamer(`video${index}`, item.webrtc_streamer)
-          itemWebrtc.connect(item.url, "", options);
-          this.webRtcServerArr.push(itemWebrtc);
+          if (firstEnter) {
+            const itemWebrtc = new WebRtcStreamer(`video${item.id}`, item.webrtc_streamer)
+            itemWebrtc.connect(item.url, "", options);
+            this.webRtcServerArr.push(itemWebrtc);
+          } else {
+            const element = this.webRtcServerArr.find((it: any) => { 
+              console.log(it.videoElement.id)
+              return it.videoElement?.id === `video${item.id}` 
+            });
+            element.connect(item.url, "", options);
+          }
         }
       }
     }, 10);
