@@ -26,7 +26,7 @@ export class CameraComponent {
   pageIndex = 1;
   FOUR_GRID = 4;
   NINE_GRID = 9;
-  gridType = 4;
+  gridType = JSON.parse(localStorage.getItem('grid_type') || '4');
   webrtcConfig = {
     options: "rtptransport=tcp&timeout=60",
   }
@@ -67,8 +67,12 @@ export class CameraComponent {
       this.connect();
     });
   }
-  handleChecked(data: NzFormatEmitEvent): void {
-    const arr = data.checkedKeys!.map((item) => item.origin);
+  handleChecked({ keys, checkedKeys }: NzFormatEmitEvent): void {
+    let checked = checkedKeys;
+    if (keys!.length === 1 && keys?.includes('0')) {
+      checked = checkedKeys && checkedKeys[0] && checkedKeys[0].children;
+    }
+    const arr = checked!.map((item) => item.origin);
     this.checkedKeys = arr;
     this.handlePageIndexChange(1);
   }
@@ -153,6 +157,7 @@ export class CameraComponent {
       return;
     }
     this.gridType = gridType;
+    localStorage.setItem('grid_type', JSON.stringify(gridType));
     this.setNzSpan();
     this.handlePageIndexChange(1);
   }

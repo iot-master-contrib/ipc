@@ -3,6 +3,11 @@
 
     .ant-layout-sider {
         background: #fff;
+
+        nz-tree {
+            height: calc(100% - 60px);
+            overflow: auto;
+        }
     }
 }
 
