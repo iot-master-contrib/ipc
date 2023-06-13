@@ -86,6 +86,7 @@ export class CameraComponent {
     this.nzSpan = this.gridType === this.NINE_GRID ? 8 : 12;
   }
   connect() {
+    console.log('---connect----')
     if (!this.showCheckedKeys.length) return;
     console.log(this.showCheckedKeys)
     const options = this.webrtcConfig.options;
