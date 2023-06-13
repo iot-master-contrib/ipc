@@ -40,7 +40,7 @@ export class CameraComponent {
   }
   load() {
     this.webRtcServerArr = [];
-    this.rs.get('camera/list').subscribe((res) => {
+    this.rs.get('camera/list', { limit: 99999 }).subscribe((res) => {
       if (!res.data) {
         return;
       }
@@ -64,7 +64,6 @@ export class CameraComponent {
       this.checkedKeys = children;
       this.setNzSpan();//默认显示4宫格
       this.handlePageIndexChange(1);
-      this.connect();
     });
   }
   handleChecked({ keys, checkedKeys }: NzFormatEmitEvent): void {
@@ -77,43 +76,41 @@ export class CameraComponent {
     this.handlePageIndexChange(1);
   }
   handlePageIndexChange(pageIndex: number) {
+    this.clearConnect();
     this.pageIndex = pageIndex;
     this.showCheckedKeys = this.checkedKeys.slice((pageIndex - 1) * this.gridType, pageIndex * this.gridType);
-    this.connect(false);
+    this.connect();
   }
   setNzSpan() {
     // 4宫格col=12，9宫格col=8
     this.nzSpan = this.gridType === this.NINE_GRID ? 8 : 12;
   }
-  connect(firstEnter = true) {
-    if (!this.checkedKeys.length) return;
+  connect() {
+    if (!this.showCheckedKeys.length) return;
+    console.log(this.showCheckedKeys)
     const options = this.webrtcConfig.options;
     const interval = setInterval(() => {
-      const video = document.getElementsByTagName("video");
+      const id = this.showCheckedKeys[0].id;
+      const video = document.getElementById(`video${id}`);
       if (video) {
         clearInterval(interval);
-        for (let index = 0; index < this.checkedKeys.length; index++) {
-          const item = this.checkedKeys[index];
-          if (firstEnter) {
-            const itemWebrtc = new WebRtcStreamer(`video${item.id}`, item.webrtc_streamer)
-            itemWebrtc.connect(item.url, "", options);
-            this.webRtcServerArr.push(itemWebrtc);
-          } else {
-            const element = this.webRtcServerArr.find((it: any) => { 
-              console.log(it.videoElement.id)
-              return it.videoElement?.id === `video${item.id}` 
-            });
-            element.connect(item.url, "", options);
-          }
+        for (let index = 0; index < this.showCheckedKeys.length; index++) {
+          const item = this.showCheckedKeys[index];
+          const itemWebrtc = new WebRtcStreamer(`video${item.id}`, item.webrtc_streamer)
+          itemWebrtc.connect(item.url, "", options);
+          this.webRtcServerArr.push(itemWebrtc);
         }
       }
     }, 10);
     window.onbeforeunload = () => {
-      this.webRtcServerArr.forEach((element: { disconnect: () => void; }) => {
-        element.disconnect();
-      });
-      this.webRtcServerArr = [];
+      this.clearConnect();
     }
+  }
+  clearConnect() {
+    this.webRtcServerArr.forEach((element: { disconnect: () => void; }) => {
+      element.disconnect();
+    });
+    this.webRtcServerArr = [];
   }
   handleEdit(data?: any) {
     const nzTitle = data ? `编辑【${data.title}】` : '新增';
