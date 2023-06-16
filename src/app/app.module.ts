@@ -35,7 +35,8 @@ import { BaseModule } from "./base/base.module";
 import { CameraComponent } from './camera/camera.component';
 import { CameraEditComponent } from './camera-edit/camera-edit.component';
 import { BridgeComponent } from './bridge/bridge.component';
-import { BridgeEditComponent } from './bridge-edit/bridge-edit.component'
+import { BridgeEditComponent } from './bridge-edit/bridge-edit.component';
+import { SingleCameraComponent } from './single-camera/single-camera.component'
 registerLocaleData(zh);
 
 @NgModule({
@@ -45,6 +46,7 @@ registerLocaleData(zh);
     CameraEditComponent,
     BridgeComponent,
     BridgeEditComponent,
+    SingleCameraComponent,
   ],
   imports: [
     BrowserModule,
