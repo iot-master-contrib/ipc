@@ -18,7 +18,7 @@ func App() *model.App {
 	return &model.App{
 		Id:   "ipc",
 		Name: "IP摄像头",
-		Entries: []model.AppEntry{{
+		Entries: []*model.AppEntry{{
 			Path: "app/ipc/camera",
 			Name: "摄像头",
 		}},
